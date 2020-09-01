@@ -1,0 +1,324 @@
+{
+  "1": {
+    "product_id": 1,
+    "traits": ["zero tolerance", "multi-state", "non-volatile"]
+  },
+  "2": {
+    "product_id": 2,
+    "traits": ["bifurcated", "asymmetric", "content-based"]
+  },
+  "3": { "product_id": 3, "traits": ["composite", "tangible", "even-keeled"] },
+  "4": {
+    "product_id": 4,
+    "traits": ["human-resource", "homogeneous", "systemic"]
+  },
+  "5": {
+    "product_id": 5,
+    "traits": ["even-keeled", "bi-directional", "impactful"]
+  },
+  "6": { "product_id": 6, "traits": ["impactful", "intermediate", "global"] },
+  "7": {
+    "product_id": 7,
+    "traits": ["motivating", "5th generation", "actuating"]
+  },
+  "8": {
+    "product_id": 8,
+    "traits": ["real-time", "multi-tasking", "dedicated"]
+  },
+  "9": {
+    "product_id": 9,
+    "traits": ["impactful", "motivating", "client-server"]
+  },
+  "10": {
+    "product_id": 10,
+    "traits": ["even-keeled", "scalable", "full-range"]
+  },
+  "11": {
+    "product_id": 11,
+    "traits": ["zero tolerance", "dedicated", "analyzing"]
+  },
+  "12": {
+    "product_id": 12,
+    "traits": ["systematic", "human-resource", "encompassing"]
+  },
+  "13": {
+    "product_id": 13,
+    "traits": ["regional", "homogeneous", "demand-driven"]
+  },
+  "14": {
+    "product_id": 14,
+    "traits": ["reciprocal", "context-sensitive", "human-resource"]
+  },
+  "15": {
+    "product_id": 15,
+    "traits": ["composite", "homogeneous", "transitional"]
+  },
+  "16": {
+    "product_id": 16,
+    "traits": ["heuristic", "3rd generation", "mobile"]
+  },
+  "17": {
+    "product_id": 17,
+    "traits": ["radical", "responsive", "web-enabled"]
+  },
+  "18": {
+    "product_id": 18,
+    "traits": ["interactive", "5th generation", "zero tolerance"]
+  },
+  "19": {
+    "product_id": 19,
+    "traits": ["clear-thinking", "dedicated", "systematic"]
+  },
+  "20": {
+    "product_id": 20,
+    "traits": ["incremental", "multimedia", "holistic"]
+  },
+  "21": { "product_id": 21, "traits": ["neutral", "local", "intermediate"] },
+  "22": {
+    "product_id": 22,
+    "traits": ["next generation", "modular", "heuristic"]
+  },
+  "23": {
+    "product_id": 23,
+    "traits": ["client-server", "zero tolerance", "fault-tolerant"]
+  },
+  "24": {
+    "product_id": 24,
+    "traits": ["intermediate", "leading edge", "discrete"]
+  },
+  "25": {
+    "product_id": 25,
+    "traits": ["motivating", "content-based", "coherent"]
+  },
+  "26": {
+    "product_id": 26,
+    "traits": ["object-oriented", "3rd generation", "human-resource"]
+  },
+  "27": { "product_id": 27, "traits": ["static", "uniform", "fresh-thinking"] },
+  "28": {
+    "product_id": 28,
+    "traits": ["4th generation", "intangible", "uniform"]
+  },
+  "29": {
+    "product_id": 29,
+    "traits": ["multi-tasking", "modular", "tangible"]
+  },
+  "30": {
+    "product_id": 30,
+    "traits": ["tangible", "non-volatile", "value-added"]
+  },
+  "31": { "product_id": 31, "traits": ["multi-state", "scalable", "24/7"] },
+  "32": {
+    "product_id": 32,
+    "traits": ["real-time", "impactful", "even-keeled"]
+  },
+  "33": {
+    "product_id": 33,
+    "traits": ["multi-tasking", "homogeneous", "background"]
+  },
+  "34": {
+    "product_id": 34,
+    "traits": ["multi-tasking", "tertiary", "reciprocal"]
+  },
+  "35": { "product_id": 35, "traits": ["local", "didactic", "regional"] },
+  "36": { "product_id": 36, "traits": ["stable", "coherent", "background"] },
+  "37": {
+    "product_id": 37,
+    "traits": ["human-resource", "scalable", "user-facing"]
+  },
+  "38": {
+    "product_id": 38,
+    "traits": ["coherent", "zero defect", "multi-state"]
+  },
+  "39": {
+    "product_id": 39,
+    "traits": ["executive", "intermediate", "high-level"]
+  },
+  "40": {
+    "product_id": 40,
+    "traits": ["attitude-oriented", "scalable", "intermediate"]
+  },
+  "41": {
+    "product_id": 41,
+    "traits": ["maximized", "discrete", "incremental"]
+  },
+  "42": { "product_id": 42, "traits": ["regional", "discrete", "heuristic"] },
+  "43": {
+    "product_id": 43,
+    "traits": ["human-resource", "uniform", "motivating"]
+  },
+  "44": { "product_id": 44, "traits": ["methodical", "24 hour", "maximized"] },
+  "45": { "product_id": 45, "traits": ["tertiary", "systemic", "incremental"] },
+  "46": {
+    "product_id": 46,
+    "traits": ["analyzing", "responsive", "object-oriented"]
+  },
+  "47": {
+    "product_id": 47,
+    "traits": ["contextually-based", "stable", "asynchronous"]
+  },
+  "48": {
+    "product_id": 48,
+    "traits": ["analyzing", "clear-thinking", "executive"]
+  },
+  "49": { "product_id": 49, "traits": ["tangible", "static", "empowering"] },
+  "50": { "product_id": 50, "traits": ["bifurcated", "tertiary", "optimal"] },
+  "51": {
+    "product_id": 51,
+    "traits": ["intermediate", "well-modulated", "optimal"]
+  },
+  "52": {
+    "product_id": 52,
+    "traits": ["explicit", "empowering", "motivating"]
+  },
+  "53": { "product_id": 53, "traits": ["content-based", "regional", "mobile"] },
+  "54": {
+    "product_id": 54,
+    "traits": ["zero tolerance", "zero defect", "contextually-based"]
+  },
+  "55": {
+    "product_id": 55,
+    "traits": ["bottom-line", "fault-tolerant", "upward-trending"]
+  },
+  "56": {
+    "product_id": 56,
+    "traits": ["system-worthy", "6th generation", "even-keeled"]
+  },
+  "57": {
+    "product_id": 57,
+    "traits": ["solution-oriented", "optimal", "zero administration"]
+  },
+  "58": {
+    "product_id": 58,
+    "traits": ["5th generation", "client-server", "discrete"]
+  },
+  "59": {
+    "product_id": 59,
+    "traits": ["logistical", "4th generation", "demand-driven"]
+  },
+  "60": {
+    "product_id": 60,
+    "traits": ["5th generation", "leading edge", "directional"]
+  },
+  "61": {
+    "product_id": 61,
+    "traits": ["optimal", "asynchronous", "4th generation"]
+  },
+  "62": {
+    "product_id": 62,
+    "traits": ["3rd generation", "bottom-line", "optimizing"]
+  },
+  "63": {
+    "product_id": 63,
+    "traits": ["zero administration", "upward-trending", "5th generation"]
+  },
+  "64": { "product_id": 64, "traits": ["intangible", "hybrid", "needs-based"] },
+  "65": {
+    "product_id": 65,
+    "traits": ["empowering", "fault-tolerant", "foreground"]
+  },
+  "66": {
+    "product_id": 66,
+    "traits": ["grid-enabled", "user-facing", "holistic"]
+  },
+  "67": {
+    "product_id": 67,
+    "traits": ["bi-directional", "bifurcated", "local"]
+  },
+  "68": {
+    "product_id": 68,
+    "traits": ["5th generation", "encompassing", "mobile"]
+  },
+  "69": { "product_id": 69, "traits": ["24/7", "neutral", "asynchronous"] },
+  "70": { "product_id": 70, "traits": ["dedicated", "background", "tangible"] },
+  "71": {
+    "product_id": 71,
+    "traits": ["intangible", "zero administration", "cohesive"]
+  },
+  "72": { "product_id": 72, "traits": ["hybrid", "full-range", "scalable"] },
+  "73": {
+    "product_id": 73,
+    "traits": ["radical", "object-oriented", "user-facing"]
+  },
+  "74": {
+    "product_id": 74,
+    "traits": ["bifurcated", "non-volatile", "national"]
+  },
+  "75": {
+    "product_id": 75,
+    "traits": ["radical", "well-modulated", "responsive"]
+  },
+  "76": {
+    "product_id": 76,
+    "traits": ["logistical", "scalable", "multi-state"]
+  },
+  "77": {
+    "product_id": 77,
+    "traits": ["hybrid", "zero administration", "background"]
+  },
+  "78": { "product_id": 78, "traits": ["stable", "tertiary", "multimedia"] },
+  "79": {
+    "product_id": 79,
+    "traits": ["fault-tolerant", "global", "mission-critical"]
+  },
+  "80": { "product_id": 80, "traits": ["needs-based", "impactful", "radical"] },
+  "81": {
+    "product_id": 81,
+    "traits": ["system-worthy", "modular", "background"]
+  },
+  "82": { "product_id": 82, "traits": ["didactic", "intermediate", "exuding"] },
+  "83": { "product_id": 83, "traits": ["stable", "multi-tasking", "static"] },
+  "84": {
+    "product_id": 84,
+    "traits": ["bottom-line", "web-enabled", "multimedia"]
+  },
+  "85": {
+    "product_id": 85,
+    "traits": ["optimizing", "dynamic", "object-oriented"]
+  },
+  "86": {
+    "product_id": 86,
+    "traits": ["didactic", "cohesive", "5th generation"]
+  },
+  "87": {
+    "product_id": 87,
+    "traits": ["context-sensitive", "background", "foreground"]
+  },
+  "88": {
+    "product_id": 88,
+    "traits": ["3rd generation", "object-oriented", "eco-centric"]
+  },
+  "89": { "product_id": 89, "traits": ["global", "hybrid", "bifurcated"] },
+  "90": {
+    "product_id": 90,
+    "traits": ["systemic", "zero administration", "context-sensitive"]
+  },
+  "91": {
+    "product_id": 91,
+    "traits": ["dynamic", "next generation", "zero tolerance"]
+  },
+  "92": { "product_id": 92, "traits": ["neutral", "holistic", "hybrid"] },
+  "93": { "product_id": 93, "traits": ["even-keeled", "tangible", "uniform"] },
+  "94": {
+    "product_id": 94,
+    "traits": ["human-resource", "neutral", "multimedia"]
+  },
+  "95": {
+    "product_id": 95,
+    "traits": ["zero administration", "national", "fresh-thinking"]
+  },
+  "96": {
+    "product_id": 96,
+    "traits": ["didactic", "methodical", "full-range"]
+  },
+  "97": { "product_id": 97, "traits": ["discrete", "even-keeled", "explicit"] },
+  "98": {
+    "product_id": 98,
+    "traits": ["bandwidth-monitored", "discrete", "content-based"]
+  },
+  "99": { "product_id": 99, "traits": ["stable", "next generation", "hybrid"] },
+  "100": {
+    "product_id": 100,
+    "traits": ["bandwidth-monitored", "composite", "clear-thinking"]
+  }
+}
