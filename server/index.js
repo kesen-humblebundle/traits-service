@@ -9,6 +9,10 @@ const bodyParser = require('body-parser');
 const axios = require('axios');
 const fetchers = require('../database-sql/models');
 
+const buildData = require('../db/buildData');
+const db = require('../db/index');
+const insertMe = require('../db/insertData');
+
 const app = express();
 
 app.use('/', express.static('public', { fallthrough: true }));
@@ -58,7 +62,6 @@ app.get('/traits/:product_id', (req, res) => {
           )
           .then((resArray) => {
             const productArray = resArray.map((response) => {
-
               return response.data;
             });
             // eslint-disable-next-line no-plusplus
