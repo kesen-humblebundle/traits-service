@@ -1,6 +1,5 @@
 const path = require('path');
-const faker = require('faker');
-const buzzphrase = require('buzzphrase');
+const sillyAnimals = require('silly-animals');
 const createCsvWriter = require('csv-writer').createArrayCsvWriter;
 const shortid = require('shortid');
 
@@ -15,10 +14,8 @@ const setupTraits = async () => {
   let traits = [];
 
   while (traits.length < MAX_TRAITS) {
-    let trait = buzzphrase.get({ format: '{a}' });
-    if (!traits.includes(trait)) {
-      traits.push([shortid.generate(), trait]);
-    }
+    let trait = sillyAnimals('{{adj}} {{adj}}');
+    traits.push([shortid.generate(), trait]);
   }
 
   await csvWriter.writeRecords(traits);
@@ -34,7 +31,7 @@ const setupGames = async (n) => {
     for (let i = 0; i <= chunks; i++) {
       const csvWriter = createCsvWriter({
         path: path.resolve(__dirname, 'data', `games${i}.csv`),
-        header: ['_key', 'product']
+        header: ['_key', 'product_id']
       });
       let chunk = [];
 
@@ -75,7 +72,6 @@ const drawEdges = async (traits, games) => {
           chunk.push([`games/${games[j][0]}`, `traits/${traits[rand][0]}`]);
         } catch (err) {
           console.log(err);
-          console.log('J is ' + j);
         }
       }
     }
