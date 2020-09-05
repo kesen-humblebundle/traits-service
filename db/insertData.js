@@ -39,8 +39,6 @@ const loadData = async () => {
 };
 
 const insertData = async (data, collection, trx) => {
-  const { id } = db.beginTransaction(collection);
-
   let result = await trx.step(() => collection.import(data));
 
   return result;

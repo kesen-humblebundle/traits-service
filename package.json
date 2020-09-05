@@ -14,7 +14,8 @@
     "p_start": "node server/server.js",
     "start": "nodemon server/server.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js",
-    "data:gen": "node -e \"require('./db/insertData.js')()\""
+    "data:gen": "node -e \"require('./db/buildData.js')(10000000)\"",
+    "data:load": "node -e \"require('./db/insertData.js')()\""
   },
   "dependencies": {
     "arangojs": "^7.0.1",
