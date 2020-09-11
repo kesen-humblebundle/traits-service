@@ -11,8 +11,8 @@
     "test": "jest --detectOpenHandles --collectCoverage",
     "build": "webpack --watch -d",
     "p_build": "webpack -p",
-    "p_start": "node server/server.js",
-    "start": "nodemon server/server.js --ignore node_modules",
+    "p_start": "node server/index.js",
+    "start": "nodemon server/index.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js"
   },
   "dependencies": {
