@@ -7,15 +7,16 @@ const { aql } = require('arangojs');
  * @returns {array} - An array of trait ids
  */
 const fetchTraitsForProduct = async (id) => {
-  let edgesCollection = db.collection('edges');
-  let game = await fetchGameFromProductId(id);
+  const edgesCollection = db.collection('edges');
+  //const traitsCollection
+  const game = await fetchGameFromProductId(id);
   let results = await db.query(aql`
-  FOR edge in ${edgesCollection}
-      FILTER edge._from == ${game}
-      return edge._to
+        FOR doc in any ${game} ${edgesCollection}
+          OPTIONS { bfs: true, uniqueVertices: 'global' }
+          return { id: doc._id, name: doc.name }
     `);
 
-  results = await results.map((result) => result);
+  results = await results.map((trait) => trait);
 
   return results;
 };
