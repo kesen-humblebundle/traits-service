@@ -25,20 +25,19 @@ const setupTraits = async () => {
 
 const setupGames = async (n) => {
   let chunks = Math.floor(n / CHUNK_SIZE) - 1;
-  let count = 0;
   let games = [];
   try {
     for (let i = 0; i <= chunks; i++) {
       const csvWriter = createCsvWriter({
         path: path.resolve(__dirname, 'data', `games${i}.csv`),
-        header: ['_key', 'product_id']
+        header: ['_key']
       });
       let chunk = [];
 
       for (let j = i * CHUNK_SIZE; j <= (i + 1) * CHUNK_SIZE - 1; j++) {
         let id = shortid.generate();
-        games.push([id, j]);
-        chunk.push([id, j]);
+        games.push([String(j)]);
+        chunk.push([String(j)]);
       }
 
       await csvWriter.writeRecords(chunk);
