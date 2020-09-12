@@ -1,18 +1,11 @@
-const path = require('path');
-require('dotenv').config({
-  path: path.resolve(__dirname, '../../.env')
-});
 const db = require('../index.js');
 const { aql } = require('arangojs');
 
-const fetchProductsForTraitQueryString = `SELECT products.product_id
-  FROM products
-  INNER JOIN traits_products
-  ON products.product_id = traits_products.product_id
-  INNER JOIN traits
-  ON traits.id = traits_products.trait_id
-  WHERE traits.trait = ?`;
-
+/**
+ * Gets a list of traits for a product
+ * @param {String} id The ID of a product for which to find thje traits
+ * @returns {array} - An array of trait ids
+ */
 const fetchTraitsForProduct = async (id) => {
   let edgesCollection = db.collection('edges');
   let game = await fetchGameFromProductId(id);
@@ -46,6 +39,11 @@ const fetchProductsForTrait = (traitStr) => {
   });
 };
 
+/**
+ * Gets the _id of a game from its product_id
+ * @param {string|number} id - The product id of a game
+ * @returns {string} - A game id i.e. 'games/XXXXXXXX'
+ */
 const fetchGameFromProductId = async (id) => {
   const gamesCollection = db.collection('games');
   try {
