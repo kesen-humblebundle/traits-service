@@ -26,6 +26,7 @@ const loadData = async () => {
     let data = fs.readFileSync(path.resolve(__dirname, 'data', files[j]), 'utf8');
     let collection = files[j].match(/(.+?)(?=\d|\.)/)[0];
     data = await neatCsv(data);
+    console.log('Inserting ' + files[j]);
     await insertData(data, collections[collection], trx);
   }
 
@@ -48,9 +49,9 @@ const setupCollections = async () => {
   let { games, traits, edges } = collections;
 
   try {
-    // if (games) await games.drop();
-    // if (traits) await traits.drop();
-    // if (edges) await edges.drop();
+    if (games) await games.drop();
+    if (traits) await traits.drop();
+    if (edges) await edges.drop();
 
     await games.create();
     await traits.create();
@@ -58,6 +59,7 @@ const setupCollections = async () => {
 
     return [games, traits, edges];
   } catch (err) {
+    console.log('Error setting up collections.');
     console.log(err.stack);
   }
 };

@@ -16,13 +16,13 @@ const db = new Database({
 });
 
 //onst arango = arangojs();
-
-db.listDatabases().then((names) => {
-  if (!names.includes('traitsDB')) {
-    db.createDatabase('traitsDB');
+(async () => {
+  let databases = await db.listDatabases();
+  if (!databases.includes('traitsDB')) {
+    await db.createDatabase('traitsDB');
   }
-});
 
-db.useDatabase('traitsDB');
+  db.useDatabase('traitsDB');
+})();
 
 module.exports = db;
