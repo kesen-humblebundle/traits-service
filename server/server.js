@@ -33,29 +33,38 @@ app.get('/traits/:product_id', async (req, res) => {
     return res.status(404).send('No traits found for this product.');
   }
 
-  for (const trait of traits) {
-    let products = await db.fetchProductsForTrait(trait.id, id);
-    let prodArray = [trait.name];
+  for (let i = 0; i < traits.length; i++) {
+    let products = await db.fetchProductsForTrait(traits[i].id, id);
+    let prodArray = [traits[i].name];
 
     // image service only has 1000 products, so modding to get the images
     products = products.map((product) => product.slice(6));
 
-    for (let i = 0; i < MAX_PRODUCTS; i++) {
-      let thumbnail = await axios.get(
-        `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${
-          products[i] % 99
-        }?type=cover`
-      );
+    let moddedIDs = products.map((product) => product % 100);
+    moddedIDs = JSON.stringify(moddedIDs);
 
-      thumbnail = thumbnail.data;
+    let thumbnails = await axios.get(
+      `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${moddedIDs}?type=thumbnail`
+    );
 
+    thumbnails = thumbnails.data;
+
+    thumbnails.forEach((thumbnail, j) => {
       prodArray.push({
-        product_id: products[i],
-        thumbnail
+        product_id: products[j],
+        thumbnail: thumbnail.thumbnail
       });
-    }
+    });
 
     console.log(prodArray);
+    // thumbnail = thumbnail.data;
+
+    // prodArray.push({
+    //   product_id: products[i],
+    //   thumbnail
+    // });
+
+    // console.log(prodArray);
 
     traitProducts.push(prodArray);
   }
