@@ -8,7 +8,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
 
-const db = require('../db/index');
+const db = require('../db/models/index');
+const MAX_PRODUCTS = 4;
 
 const app = express();
 
@@ -32,81 +33,34 @@ app.get('/traits/:product_id', async (req, res) => {
     return res.status(404).send('No traits found for this product.');
   }
 
-  for (const { id } of traits) {
+  for (const trait of traits) {
     let products = await db.fetchProductsForTrait(trait.id, id);
-    traitProducts.push({
-      [trait.id]: {
-        name: trait.name,
-        products
-      }
-    });
+    let prodArray = [trait.name];
+
+    // image service only has 1000 products, so modding to get the images
+    products = products.map((product) => product.slice(6));
+
+    for (let i = 0; i < MAX_PRODUCTS; i++) {
+      let thumbnail = await axios.get(
+        `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${
+          products[i] % 99
+        }?type=cover`
+      );
+
+      thumbnail = thumbnail.data;
+
+      prodArray.push({
+        product_id: products[i],
+        thumbnail
+      });
+    }
+
+    console.log(prodArray);
+
+    traitProducts.push(prodArray);
   }
 
-  res.status(200).send('OK');
-
-  // traits.then((traitsData) => {
-  //   const traitProducts = traitsData.traits.reduce((acc, trait) => {
-  //     return acc.concat(fetchers.fetchProductsForTrait(trait, id));
-  //   }, []);
-  //   Promise.all(traitProducts)
-  //     .then((resultsFinal) => {
-  //       resultsFinal.forEach((result) => {
-  //         if (result.products.indexOf(id) >= 0) {
-  //           result.products = result.products.filter((product) => {
-  //             return product !== id;
-  //           });
-  //           // eslint-disable-next-line no-param-reassign
-  //         }
-  //         while (result.products.length < 4) {
-  //           const filler = Math.ceil(Math.random() * 100);
-  //           if (!result.products.includes(filler) && filler !== id) {
-  //             result.products.push(filler);
-  //           }
-  //         }
-  //       });
-  //       axios
-  //         .all(
-  //           resultsFinal.map((result) => {
-  //             console.log(result.products);
-  //             const requestArray = encodeURI(JSON.stringify(result.products));
-  //             const requestURL = `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${requestArray}?type=thumbnail`;
-
-  //             return axios.get(requestURL);
-  //           })
-  //         )
-  //         .then((resArray) => {
-  //           const productArray = resArray.map((response) => {
-  //             return response.data;
-  //           });
-  //           // eslint-disable-next-line no-plusplus
-  //           for (let i = 0; i < productArray.length; i++) {
-  //             if (
-  //               productArray[i].every((item) => {
-  //                 return resultsFinal[i].products.includes(item.product_id);
-  //               })
-  //             ) {
-  //               console.log('trait', resultsFinal[i].trait);
-  //               productArray[i].push(resultsFinal[i].trait);
-  //             }
-  //           }
-  //           console.log('From Micko ', productArray);
-  //           return productArray;
-  //         })
-  //         .then((resToClient) => {
-  //           res.set({ 'Access-Control-Allow-Origin': '*' });
-  //           res.status(200).send(resToClient);
-  //         })
-  //         .catch((err) => {
-  //           console.log(err);
-  //           res.status(500).send('there was a problem');
-  //         });
-  //     })
-  //     .catch((err) => {
-  //       if (err) {
-  //         throw err;
-  //       }
-  //     });
-  // });
+  res.status(200).send(traitProducts);
 });
 
 app.get('/traits/products/:trait', (req, res) => {
