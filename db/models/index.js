@@ -49,7 +49,21 @@ const fetchProductsForTrait = async (trait, game) => {
 };
 
 const getTraitIdFromName = async (traitName) => {
-  let result = await db.query(aql);
+  const traitCollection = db.collection('traits');
+
+  try {
+    let result = await db.query(aql`
+    FOR trait IN ${traitCollection}
+      FILTER trait.name == ${traitName}
+      RETURN trait._id
+  `);
+
+    result = await result.all();
+
+    return result[0];
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const getRandomGames = (results, id) => {
@@ -64,5 +78,6 @@ const getRandomGames = (results, id) => {
 
 module.exports = {
   fetchProductsForTrait,
-  fetchTraitsForProduct
+  fetchTraitsForProduct,
+  getTraitIdFromName
 };
