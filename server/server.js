@@ -65,9 +65,14 @@ app.get('/traits/:product_id', async (req, res) => {
   res.status(200).send(traitProducts);
 });
 
-app.get('/traits/products/:trait', (req, res) => {
+app.get('/traits/products/:trait', async (req, res) => {
   // get trait id from name
+  let { trait } = req.params;
+  let traitID = await db.getTraitIdFromName(trait);
   // get products from id
+  let products = await db.fetchProductsForTrait(traitID);
+
+  res.status(200).send(products);
 });
 
 module.exports = app;
