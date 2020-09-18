@@ -7,12 +7,14 @@ require('dotenv').config({
 const express = require('express');
 const bodyParser = require('body-parser');
 const axios = require('axios');
+const cors = require('cors');
 
 const db = require('../db/models/index');
 const MAX_PRODUCTS = 4;
 
 const app = express();
 
+app.use(cors());
 app.use('/', express.static('public', { fallthrough: true }));
 app.use('/:product_id', express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,9 +37,8 @@ app.get('/traits/:product_id', async (req, res) => {
 
   for (let i = 0; i < traits.length; i++) {
     let products = await db.fetchProductsForTrait(traits[i].id, id);
-    let prodArray = [traits[i].name];
+    let prodArray = [];
 
-    // image service only has 1000 products, so modding to get the images
     products = products.map((product) => product.slice(6));
 
     let moddedIDs = products.map((product) => product % 100);
@@ -56,15 +57,7 @@ app.get('/traits/:product_id', async (req, res) => {
       });
     });
 
-    console.log(prodArray);
-    // thumbnail = thumbnail.data;
-
-    // prodArray.push({
-    //   product_id: products[i],
-    //   thumbnail
-    // });
-
-    // console.log(prodArray);
+    prodArray.push(traits[i].name);
 
     traitProducts.push(prodArray);
   }
@@ -73,17 +66,8 @@ app.get('/traits/:product_id', async (req, res) => {
 });
 
 app.get('/traits/products/:trait', (req, res) => {
-  console.log(req.params);
-  fetchers
-    .fetchProductsForTrait(req.params.trait)
-    .then((result) => {
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      if (err) {
-        res.status(500).send(err, 'Please try again');
-      }
-    });
+  // get trait id from name
+  // get products from id
 });
 
 module.exports = app;

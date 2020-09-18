@@ -48,6 +48,10 @@ const fetchProductsForTrait = async (trait, game) => {
   return results;
 };
 
+const getTraitIdFromName = async (traitName) => {
+  let result = await db.query(aql);
+};
+
 const getRandomGames = (results, id) => {
   let games = [];
 
