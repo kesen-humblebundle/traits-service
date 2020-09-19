@@ -21,8 +21,10 @@ const db = new Database({
   if (!databases.includes('traitsDB')) {
     await db.createDatabase('traitsDB');
   }
-
-  db.useDatabase('traitsDB');
 })();
 
-module.exports = db;
+const traitsDB = db.database('traitsDB');
+
+//db.useDatabase('traitsDB');
+
+module.exports = traitsDB;
