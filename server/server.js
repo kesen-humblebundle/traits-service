@@ -27,52 +27,70 @@ app.get('/:product_id', (req, res) => {
 });
 
 app.get('/traits/:product_id', async (req, res) => {
-  const id = +req.params.product_id;
-  const traits = await db.fetchTraitsForProduct(id);
-  let traitProducts = [];
+  try {
+    const id = +req.params.product_id;
+    const traits = await db.fetchTraitsForProduct(id);
+    let traitProducts = [];
 
-  if (!traits || traits.length === 0) {
-    return res.status(404).send('No traits found for this product.');
-  }
+    if (!traits || traits.length === 0) {
+      return res.status(404).send('No traits found for this product.');
+    }
 
-  for (let i = 0; i < traits.length; i++) {
-    let products = await db.fetchProductsForTrait(traits[i].id, id);
-    let prodArray = [];
+    for (let i = 0; i < traits.length; i++) {
+      // TODO: Decide how to handle missing products for a single trait
+      let products = await db.fetchProductsForTrait(traits[i].id, id);
+      let prodArray = [];
 
-    products = products.map((product) => product.slice(6));
+      products = products.map((product) => product.slice(6));
 
-    let moddedIDs = products.map((product) => product % 100);
-    moddedIDs = JSON.stringify(moddedIDs);
+      let moddedIDs = products.map((product) => product % 100);
+      moddedIDs = JSON.stringify(moddedIDs);
 
-    let thumbnails = await axios.get(
-      `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${moddedIDs}?type=thumbnail`
-    );
+      let thumbnails = await axios.get(
+        `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${moddedIDs}?type=thumbnail`
+      );
 
-    thumbnails = thumbnails.data;
+      thumbnails = thumbnails.data;
 
-    thumbnails.forEach((thumbnail, j) => {
-      prodArray.push({
-        product_id: products[j],
-        thumbnail: thumbnail.thumbnail
+      thumbnails.forEach((thumbnail, j) => {
+        prodArray.push({
+          product_id: products[j],
+          thumbnail: thumbnail.thumbnail
+        });
       });
-    });
 
-    prodArray.push(traits[i].name);
+      prodArray.push(traits[i].name);
 
-    traitProducts.push(prodArray);
+      traitProducts.push(prodArray);
+    }
+
+    res.status(200).send(traitProducts);
+  } catch (err) {
+    console.log('Error getting products for trait.', err);
+    res.status(500).send('Error getting products. Contact system admin.');
   }
-
-  res.status(200).send(traitProducts);
 });
 
 app.get('/traits/products/:trait', async (req, res) => {
-  // get trait id from name
-  let { trait } = req.params;
-  let traitID = await db.getTraitIdFromName(trait);
-  // get products from id
-  let products = await db.fetchProductsForTrait(traitID);
+  try {
+    let { trait } = req.params;
+    let traitID = await db.getTraitIdFromName(trait);
 
-  res.status(200).send(products);
+    if (!traitID) {
+      return res.status(400).send('Trait not found in database. Please try again.');
+    }
+
+    let products = await db.fetchProductsForTrait(traitID);
+
+    if (!products || products.length === 0) {
+      return res.status(404).send('No products were found with this trait. Please try again.');
+    }
+
+    res.status(200).send(products);
+  } catch (err) {
+    console.log('Error getting products for trait.', err);
+    return res.status(500).send('Error getting products. Please contact system admin for support.');
+  }
 });
 
 module.exports = app;

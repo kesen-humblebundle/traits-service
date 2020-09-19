@@ -12,7 +12,7 @@
     "build": "webpack --watch -d",
     "p_build": "webpack -p",
     "p_start": "node server/server.js",
-    "start": "nodemon server/server.js --ignore node_modules",
+    "start": "nodemon server/index.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js",
     "data:gen": "node -e \"require('./db/buildData.js')(10000000)\"",
     "data:load": "node -e \"require('./db/insertData.js')()\""
