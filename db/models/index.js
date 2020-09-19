@@ -53,7 +53,7 @@ const fetchProductsForTrait = async (trait, game) => {
 
     return results;
   } catch (err) {
-    console.log('fetchProductsForTrait: Failed to find products for trait.', err);
+    console.log('fetchProductsForTrait: Failed to find products for trait.\n', err.response.body);
   }
 };
 
@@ -76,9 +76,81 @@ const getTraitIdFromName = async (traitName) => {
 
     return result[0];
   } catch (err) {
-    console.log('getTraitIdFromName: Failed to get trait id', err);
+    console.log('getTraitIdFromName: Failed to get trait id\n', err.response.body);
 
     return '';
+  }
+};
+
+/**
+ * Adds a new trait to the database. Only a name needs to be provided. The database
+ * automatically generates the _key and _id.
+ *
+ * Name must be unique.
+ *
+ * @param {string} traitName - name of trait to add to the databasze
+ * @returns {number} - 1 for successful insert and 0 for no insert
+ */
+const addTraitToDatabase = async (traitName) => {
+  const traitCollection = db.collection('traits');
+
+  try {
+    const result = await db.query(aql`
+    INSERT { name: ${traitName}} INTO ${traitCollection}
+  `);
+
+    console.log(result);
+
+    return 1;
+  } catch (err) {
+    console.log('addTraitToDatabase: Could not add trait.\n', err.response.body.errorMessage);
+    return 0;
+  }
+};
+
+/**
+ * Adds a game to the database and creates edges for its traits
+ * @param {string} id - The product id of the game to be added
+ * @param {array} traits - Any traits the game should have
+ */
+const addGameToDatabase = async (id, traits) => {
+  const gameCollection = db.collection('games');
+
+  try {
+    await db.query(aql`
+      INSERT { _key: ${id} } INTO ${gameCollection}
+    `);
+
+    // TODO: This assumes trait _id will be passed in. Allow for the contengency that it could
+    // be the name or the _key
+    for (trait of traits) {
+      await addEdge('games/' + id, trait);
+    }
+
+    return 1;
+  } catch (err) {
+    console.log('addGameToDatabase: Failed to add new game.\n', err.response.body.errorMessage);
+    return 0;
+  }
+};
+
+/**
+ * Creates an edge connecting a game to a trait
+ * @param {string} game - _id of a game
+ * @param {*} trait - _id of a trait
+ */
+const addEdge = async (game, trait) => {
+  const edgeCollection = db.collection('edges');
+
+  try {
+    await db.query(aql`
+    INSERT { _from: ${game}, _to: ${trait} } INTO ${edgeCollection}
+  `);
+
+    return 1;
+  } catch (err) {
+    console.log('addEdge: Unable to add edge.\n', err.response.body.errorMessage);
+    return 0;
   }
 };
 
@@ -95,5 +167,8 @@ const getRandomGames = (results, id) => {
 module.exports = {
   fetchProductsForTrait,
   fetchTraitsForProduct,
-  getTraitIdFromName
+  getTraitIdFromName,
+  addTraitToDatabase,
+  addGameToDatabase,
+  addEdge
 };
