@@ -6,6 +6,7 @@ const routes = express();
 
 routes.use(express.Router());
 
+/* -----------  GET ROUTES --------------------------------------------------------------------------- */
 routes.get('/:product_id', async (req, res) => {
   try {
     const id = +req.params.product_id;
@@ -16,6 +17,7 @@ routes.get('/:product_id', async (req, res) => {
       return res.status(404).send('No traits found for this product.');
     }
 
+    // TODO: Explore ways to improve this process
     for (let i = 0; i < traits.length; i++) {
       // TODO: Decide how to handle missing products for a single trait
       let products = await db.fetchProductsForTrait(traits[i].id, id);
@@ -71,6 +73,11 @@ routes.get('/products/:trait', async (req, res) => {
     console.log('Error getting products for trait.', err);
     return res.status(500).send('Error getting products. Please contact system admin for support.');
   }
+});
+
+/* -----------  post ROUTES -------------------------------------------------------------------------- */
+routes.post('/', (req, res) => {
+  res.status(200).send('ok');
 });
 
 module.exports = routes;

@@ -11,18 +11,22 @@ const NUM_GAMES_PER_TRAIT = 4;
  */
 const fetchTraitsForProduct = async (id) => {
   const edgesCollection = db.collection('edges');
-  id = 'games/' + String(id);
+  id = 'games/' + String(id); // the id in arango is 'collection/id_string'
 
-  let results = await db.query(aql`
+  try {
+    let results = await db.query(aql`
         FOR doc in any ${id} ${edgesCollection}
           OPTIONS { bfs: true, uniqueVertices: 'global' }
           return { id: doc._id, name: doc.name }
     `);
 
-  results = await results.all();
-  console.log(results);
+    results = await results.all();
 
-  return results;
+    return results;
+  } catch (err) {
+    console.log('fetchTraitsForProduct: Error getting products from database.');
+    return [];
+  }
 };
 
 /**
@@ -30,24 +34,34 @@ const fetchTraitsForProduct = async (id) => {
  * for practical reasons the list of games is limited to 10k results
  * and four are randomly selected from that
  * @param {string} id - ID of a trait for which to find some randomish games
+ * @returns {array} - array product ids associated with trait.
  */
 const fetchProductsForTrait = async (trait, game) => {
   const edgesCollection = db.collection('edges');
   //const whichGames = getRandomGames();
   let count = 0;
 
-  let results = await db.query(aql`
+  try {
+    let results = await db.query(aql`
     FOR edge IN ${edgesCollection}
       FILTER edge._to == ${trait}
       LIMIT 10000
       return edge._from
   `);
-  results = await results.all();
-  results = getRandomGames(results);
+    results = await results.all();
+    results = getRandomGames(results);
 
-  return results;
+    return results;
+  } catch (err) {
+    console.log('fetchProductsForTrait: Failed to find products for trait.', err);
+  }
 };
 
+/**
+ * This method takes a trait name and returns the matching trait id
+ * @param {string} traitName - the name property of a trait
+ * @returns {string} - the _id of the trait with the matching name property
+ */
 const getTraitIdFromName = async (traitName) => {
   const traitCollection = db.collection('traits');
 
@@ -62,7 +76,9 @@ const getTraitIdFromName = async (traitName) => {
 
     return result[0];
   } catch (err) {
-    console.log(err);
+    console.log('getTraitIdFromName: Failed to get trait id', err);
+
+    return '';
   }
 };
 
