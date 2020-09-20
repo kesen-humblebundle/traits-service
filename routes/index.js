@@ -76,8 +76,25 @@ routes.get('/products/:trait', async (req, res) => {
 });
 
 /* -----------  post ROUTES -------------------------------------------------------------------------- */
-routes.post('/', (req, res) => {
-  res.status(200).send('ok');
+// Add a new trait
+routes.post('/', async (req, res) => {
+  const { trait } = req.body;
+
+  try {
+    let response = await db.addTraitToDatabase(trait);
+
+    if (response === 0) {
+      return res.status(417).send('Could not add trait to database.');
+    }
+
+    return res.status(201).send('Trait added to databse.');
+  } catch (err) {
+    console.log("POST /traits: Couldn't add trait to database.");
+
+    res
+      .status(500)
+      .send('Internal server error adding trait. Please contact system admin for support.\n', err);
+  }
 });
 
 module.exports = routes;
