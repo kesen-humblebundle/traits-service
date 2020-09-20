@@ -16,6 +16,9 @@ const app = express();
 
 app.use(cors());
 app.use('/', express.static('public', { fallthrough: true }));
+
+app.use('/:product_id', express.static('public'));
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev'));
