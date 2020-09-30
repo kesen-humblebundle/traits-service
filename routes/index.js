@@ -29,16 +29,17 @@ routes.get('/:product_id', async (req, res) => {
       let moddedIDs = products.map((product) => product % 100);
       moddedIDs = JSON.stringify(moddedIDs);
 
-      let thumbnails = await axios.get(
-        `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${moddedIDs}?type=thumbnail`
-      );
+      // let thumbnails = await axios.get(
+      //   `http://ec2-52-14-126-227.us-east-2.compute.amazonaws.com:3001/api/${moddedIDs}?type=thumbnail`
+      // );
 
-      thumbnails = thumbnails.data;
+      //thumbnails = thumbnails.data;
 
-      thumbnails.forEach((thumbnail, j) => {
+      products.forEach((product) => {
         prodArray.push({
-          product_id: products[j],
-          thumbnail: thumbnail.thumbnail
+          product_id: product,
+          thumbnail:
+            'https://sdc-kesen-images.s3.us-east-2.amazonaws.com/desktop/small_thumbnail.png'
         });
       });
 
