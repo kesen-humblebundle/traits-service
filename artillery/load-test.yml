@@ -1,0 +1,29 @@
+config:
+  target: http://localhost:3000
+  phases:
+    - duration: 120
+      arrivalRate: 10
+      name: '10 per second'
+    - duration: 300
+      arrivalRate: 100
+      name: '100 per second'
+    #- duration: 300
+    #  arrivalRate: 1000
+    #  name: '1K per seconds'
+scenarios:
+  - flow:
+      #      - get:
+      #          url: '/9999996/'
+      - get:
+          url: '/traits/9999996'
+      #- get:
+      #   url: '/traits/products/sportive%20bought'
+#      - post:
+#          url: '/traits'
+#          json:
+#            trait: 'inmost crined'
+#      - post:
+#          url: '/traits/product'
+#          json:
+#            trait: 'WbulZTIVqGX'
+#            product_id: '8'
