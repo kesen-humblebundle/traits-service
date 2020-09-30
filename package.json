@@ -9,10 +9,10 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles --collectCoverage",
-    "build": "webpack --watch -d",
+    "react:dev": "webpack --watch -d",
     "p_build": "webpack -p",
     "p_start": "node server/server.js",
-    "start": "nodemon server/server.js --ignore node_modules",
+    "server:dev": "nodemon server/index.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js",
     "data:gen": "node -e \"require('./db/buildData.js')(10000000)\"",
     "data:load": "node -e \"require('./db/insertData.js')()\""
@@ -28,6 +28,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "jsdoc": "^3.6.6",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "neat-csv": "^5.2.0",
     "prop-types": "^15.7.2",
