@@ -9,10 +9,10 @@
   },
   "scripts": {
     "test": "jest --detectOpenHandles --collectCoverage",
-    "build": "webpack --watch -d",
+    "react:dev": "webpack --watch -d",
     "p_build": "webpack -p",
     "p_start": "node server/server.js",
-    "start": "nodemon server/index.js --ignore node_modules",
+    "server:dev": "nodemon server/index.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js",
     "data:gen": "node -e \"require('./db/buildData.js')(10000000)\"",
     "data:load": "node -e \"require('./db/insertData.js')()\""

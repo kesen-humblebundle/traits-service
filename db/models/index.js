@@ -144,6 +144,9 @@ const addGameToDatabase = async (id, traits) => {
 const addEdgeToDatabase = async (game, trait) => {
   const edgeCollection = db.collection('edges');
 
+  game = 'games/' + game;
+  trait = 'traits/' + trait;
+
   try {
     await db.query(aql`
     INSERT { _from: ${game}, _to: ${trait} } INTO ${edgeCollection}

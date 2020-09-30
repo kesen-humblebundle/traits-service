@@ -90,11 +90,31 @@ routes.post('/', async (req, res) => {
 
     return res.status(201).send('Trait added to databse.');
   } catch (err) {
-    console.log("POST /traits: Couldn't add trait to database.");
+    console.log("POST /traits: Couldn't add trait to database.", err);
 
     res
       .status(500)
-      .send('Internal server error adding trait. Please contact system admin for support.\n', err);
+      .send('Internal server error adding trait. Please contact system admin for support.\n');
+  }
+});
+
+routes.post('/product', async (req, res) => {
+  const { trait, product_id } = req.body;
+
+  try {
+    let response = await db.addEdgeToDatabase(product_id, trait);
+
+    if (response === 0) {
+      return res.status(417).send('Could not add trait to game.');
+    }
+
+    return res.status(201).send('Trait added to game.');
+  } catch (err) {
+    console.log('POST /traits/product: Could not add trait to game.', err);
+
+    res
+      .status(500)
+      .send('Internal server error adding trait. Please contact system admin for support.\n');
   }
 });
 
