@@ -22,13 +22,11 @@ app.use('/:product_id', express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev'));
-
+app.use('/traits', routes);
 app.get('/:product_id', (req, res) => {
   const product_id = req.params.product_id;
   res.redirect(`/traits/${product_id}`);
   res.end();
 });
-
-app.use('/traits', routes);
 
 module.exports = app;

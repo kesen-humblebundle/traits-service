@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "arangojs": "^7.0.1",
+    "artillery": "^1.6.1",
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "buzzphrase": "^2.5.5",
@@ -32,6 +33,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "neat-csv": "^5.2.0",
+    "newrelic": "^6.13.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
