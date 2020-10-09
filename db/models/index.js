@@ -15,16 +15,16 @@ const fetchTraitsForProduct = async (id) => {
 
   try {
     let results = await db.query(aql`
-        FOR doc in any ${id} ${edgesCollection}
-          OPTIONS { bfs: true, uniqueVertices: 'global' }
-          return { id: doc._id, name: doc.name }
+        FOR edge in ${edgesCollection}
+        FILTER edge._from == ${id}
+        RETURN edge._to
     `);
 
     results = await results.all();
 
     return results;
   } catch (err) {
-    console.log('fetchTraitsForProduct: Error getting products from database.');
+    console.log('fetchTraitsForProduct: Error getting products from database.', err);
     return [];
   }
 };
@@ -42,12 +42,17 @@ const fetchProductsForTrait = async (trait, game) => {
   let count = 0;
 
   try {
+    //   let results = await db.query(aql`
+    //   FOR edge IN ${edgesCollection}
+    //   FILTER edge._to == ${trait}
+    //   RETURN edge._from
+    // `);
     let results = await db.query(aql`
-    FOR edge IN ${edgesCollection}
-      FILTER edge._to == ${trait}
-      LIMIT 10000
-      return edge._from
-  `);
+      FOR edge IN ${edgesCollection}
+        FILTER edge._to == ${trait}
+        LIMIT 10000
+        RETURN edge._from
+    `);
     results = await results.all();
     results = getRandomGames(results);
 
@@ -82,6 +87,24 @@ const getTraitIdFromName = async (traitName) => {
   }
 };
 
+const getTraitNameFromId = async (traitId) => {
+  const traitCollection = db.collection('traits');
+
+  try {
+    let result = await db.query(aql`
+      FOR trait in ${traitCollection}
+      FILTER trait._id == ${traitId}
+      RETURN trait.name
+    `);
+
+    result = await result.all();
+
+    return result[0];
+  } catch (err) {
+    console.log('getTraitNameFromId: Failed to get trait name\n', err.response.body);
+  }
+};
+
 /**
  * Adds a new trait to the database. Only a name needs to be provided. The database
  * automatically generates the _key and _id.
@@ -98,8 +121,6 @@ const addTraitToDatabase = async (traitName) => {
     const result = await db.query(aql`
     INSERT { name: ${traitName}} INTO ${traitCollection}
   `);
-
-    console.log(result);
 
     return 1;
   } catch (err) {
@@ -178,8 +199,6 @@ const removeGameFromDatabase = async (id) => {
 
     edges = await edges.all();
 
-    console.log(edges);
-
     await db.query(aql`
       REMOVE { _key: ${id} } IN ${gameCollection}
     `);
@@ -231,6 +250,7 @@ module.exports = {
   fetchProductsForTrait,
   fetchTraitsForProduct,
   getTraitIdFromName,
+  getTraitNameFromId,
   addTraitToDatabase,
   addGameToDatabase,
   addEdgeToDatabase,

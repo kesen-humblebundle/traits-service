@@ -56,7 +56,8 @@ class App extends React.Component {
     //const requestURL = `http://ec2-3-129-17-68.us-east-2.compute.amazonaws.com:3005/traits${id}`;
 
     // ********** uncomment below url to run service locally */
-    const requestURL = `http://127.0.0.1:3000/traits${id}`;
+    const requestURL = `http://${window.location.hostname}:3000/traits${id}`;
+    // const requestURL = `http://localhost:3000/traits${id}`;
 
     axios
       .get(requestURL)

@@ -11,7 +11,7 @@
     "test": "jest --detectOpenHandles --collectCoverage",
     "react:dev": "webpack --watch -d",
     "p_build": "webpack -p",
-    "p_start": "node server/server.js",
+    "start": "node server/index.js",
     "server:dev": "nodemon server/index.js --ignore node_modules",
     "seedDB": "node database-sql/seed.js",
     "data:gen": "node -e \"require('./db/buildData.js')(10000000)\"",
