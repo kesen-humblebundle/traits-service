@@ -1,10 +1,13 @@
 config:
-  target: http://localhost:3000
+  target: http://3.22.149.129:3000
   phases:
-    - duration: 120
+    - duration: 30
       arrivalRate: 10
       name: '10 per second'
-    - duration: 300
+    - duration: 30
+      arrivalRate: 50
+      name: '10 per second'
+    - duration: 60
       arrivalRate: 100
       name: '100 per second'
     #- duration: 300
@@ -17,7 +20,7 @@ scenarios:
       - get:
           url: '/traits/9999996'
       #- get:
-      #   url: '/traits/products/sportive%20bought'
+      #   url: '/traits/products/flaxen%20proven'
 #      - post:
 #          url: '/traits'
 #          json:

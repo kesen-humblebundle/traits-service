@@ -4,10 +4,10 @@ require('dotenv').config({
   path: path.resolve(__dirname, '../.env')
 });
 
-const { DB_USER, DB_PW } = process.env;
+const { DB_USER, DB_PW, DB1, DB2, DB3, DB4, DB5 } = process.env;
 
 const db = new Database({
-  url: 'http://localhost:8529/',
+  url: [DB1, DB2, DB3, DB4, DB5],
   auth: {
     username: DB_USER,
     password: DB_PW

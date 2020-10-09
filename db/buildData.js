@@ -61,7 +61,7 @@ const drawEdges = async (traits, games) => {
 
     for (let j = i * CHUNK_SIZE; j < (i + 1) * CHUNK_SIZE; j++) {
       let used = [];
-      for (let k = 0; k < 10; k++) {
+      for (let k = 0; k < 5; k++) {
         let rand = Math.floor(Math.random() * 100);
         while (used.includes(traits[rand][0])) {
           rand = Math.floor(Math.random() * 100);

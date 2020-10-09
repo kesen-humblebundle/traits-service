@@ -21,7 +21,7 @@ routes.get('/:product_id', async (req, res) => {
     // TODO: Explore ways to improve this process
     for (let i = 0; i < traits.length; i++) {
       // TODO: Decide how to handle missing products for a single trait
-      let products = await db.fetchProductsForTrait(traits[i].id, id);
+      let products = await db.fetchProductsForTrait(traits[i], id);
       let prodArray = [];
 
       products = products.map((product) => product.slice(6));
@@ -43,7 +43,9 @@ routes.get('/:product_id', async (req, res) => {
         });
       });
 
-      prodArray.push(traits[i].name);
+      let traitName = await db.getTraitNameFromId(traits[i]);
+
+      prodArray.push(traitName);
 
       traitProducts.push(prodArray);
     }

@@ -1,0 +1,7 @@
+**/*.csv
+.git
+database-sql
+artillery
+.env
+buildData.js
+insertData.js
