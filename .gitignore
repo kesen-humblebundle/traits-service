@@ -4,3 +4,4 @@ public/bundle.js
 coverage/
 data/
 database-sql
+newrelic_agent.log
